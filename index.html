@@ -852,6 +852,119 @@ tr.detail.open .dwrap{grid-template-rows:1fr}
   .stats .stat:last-child{grid-column:auto}
   .benefit2 .card,.comm-intro .card{flex-direction:column}
 }
+
+/* ============================================================
+   v5 — РЕАЛИЗМ НА ОБЪЕКТАХ (глянцевые монеты, телефон+живой дашборд, dive, финал)
+   ============================================================ */
+
+/* ---- glossy «журнальные» монеты ---- */
+.coin{position:relative;display:block;width:100%;height:100%;border-radius:50%;isolation:isolate;
+  background:
+    radial-gradient(56% 52% at 34% 26%,rgba(255,255,255,.85),rgba(255,255,255,0) 42%),
+    radial-gradient(130% 120% at 50% 46%,var(--c-hi),var(--c-lo) 66%,#060309 108%);
+  box-shadow:inset 0 3px 7px rgba(255,255,255,.5),inset 0 -10px 22px rgba(0,0,0,.5),
+    inset 0 0 0 2px rgba(255,255,255,.16),
+    0 22px 44px rgba(0,0,0,.55),0 0 30px var(--accent-muted)}
+.coin::before{content:"";position:absolute;inset:5%;border-radius:50%;pointer-events:none;mix-blend-mode:screen;opacity:.85;
+  background:conic-gradient(from 215deg,transparent 0deg,rgba(167,139,250,.65) 26deg,transparent 78deg,transparent 250deg,rgba(255,255,255,.6) 300deg,transparent 338deg)}
+.coin .face{position:absolute;inset:12%;border-radius:50%;display:grid;place-items:center;
+  background:
+    radial-gradient(60% 60% at 38% 30%,rgba(255,255,255,.45),rgba(255,255,255,0) 48%),
+    radial-gradient(120% 120% at 50% 50%,var(--c-hi),var(--c-lo) 82%);
+  box-shadow:inset 0 2px 5px rgba(255,255,255,.4),inset 0 -7px 15px rgba(0,0,0,.42)}
+.coin .sym{font-family:var(--font-mono);font-weight:700;color:#fff;line-height:1;font-size:42px;opacity:.97;
+  text-shadow:0 2px 3px rgba(0,0,0,.5),0 0 12px rgba(255,255,255,.25)}
+.coin .face svg{width:46%;height:46%;color:#fff;opacity:.97;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;
+  filter:drop-shadow(0 2px 3px rgba(0,0,0,.45))}
+.coin .spec{position:absolute;left:17%;top:10%;width:36%;height:24%;border-radius:50%;pointer-events:none;
+  background:radial-gradient(closest-side,rgba(255,255,255,.92),transparent 72%);filter:blur(.4px)}
+.c-cgs{--c-hi:#A78BFA;--c-lo:#5B21B6}
+.c-btc{--c-hi:#E8C27A;--c-lo:#8A5A14}
+.c-eth{--c-hi:#C9CBE6;--c-lo:#4C4F7A}
+.c-usdc{--c-hi:#86B0E8;--c-lo:#235C9E}
+.c-usdt{--c-hi:#6FCBA6;--c-lo:#1C6B52}
+.c-sol{--c-hi:#B79CF0;--c-lo:#6A37A0}
+.coin .sym.s-sm{font-size:34px}
+.arc .jfloat{display:block;width:100%;height:100%}
+/* центральная hero-монета */
+.arc .hero-coin{position:absolute;left:50%;top:60%;width:150px;height:150px;margin:-75px 0 0 -75px;z-index:2;transform-style:preserve-3d}
+.arc .hero-coin .coin .sym{font-size:60px}
+@media (max-width:980px){.arc .hero-coin{position:static;margin:0;width:104px;height:104px}}
+
+/* ---- телефон + живой CGS-дашборд ---- */
+.phone{position:relative;width:300px;height:610px;border-radius:46px;padding:13px;flex:none;
+  background:linear-gradient(155deg,#2b2542,#0c0916);
+  box-shadow:inset 0 0 0 2px rgba(255,255,255,.08),inset 0 2px 1px rgba(255,255,255,.22),
+    0 50px 120px rgba(0,0,0,.7),0 0 64px var(--accent-muted)}
+.phone::before{content:"";position:absolute;left:50%;top:13px;transform:translateX(-50%);width:118px;height:25px;border-radius:0 0 14px 14px;background:#05040a;z-index:4}
+.phone::after{content:"";position:absolute;inset:0;border-radius:46px;pointer-events:none;mix-blend-mode:screen;
+  background:linear-gradient(120deg,rgba(255,255,255,.18),transparent 28%,transparent 72%,rgba(255,255,255,.07))}
+.phone .screen{position:relative;width:100%;height:100%;border-radius:34px;overflow:hidden;
+  background:radial-gradient(120% 75% at 50% 0%,#16112a,#0a090d);box-shadow:inset 0 0 0 1px rgba(255,255,255,.05)}
+.cgs-dash{position:absolute;inset:0;display:flex;flex-direction:column;gap:11px;padding:44px 15px 16px}
+.cgs-top{display:flex;align-items:center;justify-content:space-between}
+.cgs-top .wm{font-size:13px}
+.cgs-live{display:flex;align-items:center;gap:5px;font-family:var(--font-mono);font-size:9.5px;letter-spacing:.08em;color:var(--success);text-transform:uppercase}
+.cgs-live i{width:6px;height:6px;border-radius:50%;background:var(--success);box-shadow:0 0 9px var(--success)}
+.cgs-card{border-radius:16px;padding:14px;background:linear-gradient(160deg,rgba(255,255,255,.06),rgba(255,255,255,.02));
+  border:1px solid var(--border-subtle);box-shadow:inset 0 1px #ffffff14}
+.cgs-card .lab{font-family:var(--font-mono);font-size:9px;letter-spacing:.1em;text-transform:uppercase;color:var(--text-muted)}
+.cgs-kpi{font-family:var(--font-mono);font-weight:700;font-size:30px;letter-spacing:-.02em;color:var(--text-primary);margin-top:4px;display:flex;align-items:baseline;gap:8px}
+.cgs-kpi .up{font-size:12px;color:var(--success)}
+.cgs-spark{margin-top:8px;width:100%;height:34px;display:block}
+.cgs-spark polyline{fill:none;stroke:var(--accent-light);stroke-width:2;stroke-linecap:round;stroke-linejoin:round;filter:drop-shadow(0 0 6px var(--accent-glow))}
+.cgs-spark .area{fill:url(#cgsg);stroke:none}
+.cgs-zones{display:grid;grid-template-columns:1fr 1fr 1fr;gap:7px}
+.cgs-zone{border-radius:12px;padding:9px 8px;text-align:center;background:var(--accent-muted);border:1px solid rgba(var(--accent-rgb),.30)}
+.cgs-zone b{display:block;font-family:var(--font-mono);font-size:14px;color:var(--accent-light)}
+.cgs-zone span{font-size:8.5px;color:var(--text-muted)}
+.cgs-rows{display:flex;flex-direction:column;gap:7px;margin-top:1px}
+.cgs-row{display:flex;align-items:center;gap:9px}
+.cgs-row .ci{width:28px;height:28px;flex:none}
+.cgs-row .ci .sym{font-size:12px}
+.cgs-row .ci .face{inset:15%}
+.cgs-row .nm{font-size:11px;color:var(--text-primary)}
+.cgs-row .nm small{display:block;font-size:9px;color:var(--text-muted)}
+.cgs-row .val{margin-left:auto;text-align:right;font-family:var(--font-mono);font-size:11px;color:var(--text-primary)}
+.cgs-row .val small{display:block;font-size:9px}
+.cgs-row .val .g{color:var(--success)}
+.cgs-row .val .r{color:var(--danger)}
+
+/* ---- DIVE: телефон поднимается и приближается по скроллу ---- */
+.dive-stage{position:relative;display:flex;align-items:center;justify-content:center;gap:48px;min-height:78vh;flex-wrap:wrap}
+.dive-copy{max-width:420px}
+.dive-coins{position:absolute;inset:0;pointer-events:none;z-index:0}
+.dive-coins .ai{position:absolute;width:64px;height:64px}
+.dive-coins .ai:nth-child(1){left:8%;top:18%}
+.dive-coins .ai:nth-child(2){right:10%;top:24%;width:50px;height:50px}
+.dive-coins .ai:nth-child(3){left:14%;bottom:16%;width:46px;height:46px}
+.js [data-dive]{will-change:transform}
+@media (max-width:980px){.dive-stage{min-height:0;gap:28px}.dive-coins{display:none}}
+
+/* ---- ФИНАЛ: свечёный вордмарк на halftone ---- */
+.finale{position:relative;padding:120px 0 90px;text-align:center;overflow:hidden}
+.finale .dotfield{position:absolute;inset:0;pointer-events:none;opacity:.5;
+  background:radial-gradient(circle,rgba(var(--accent-rgb),.55) 1.1px,transparent 1.6px) 0 0/22px 22px;
+  -webkit-mask:radial-gradient(60% 60% at 50% 46%,#000,transparent 72%);mask:radial-gradient(60% 60% at 50% 46%,#000,transparent 72%)}
+.finale .halo{position:absolute;left:50%;top:42%;width:560px;height:560px;transform:translate(-50%,-50%);pointer-events:none;
+  background:radial-gradient(circle,rgba(var(--accent-rgb),.30),transparent 64%);filter:blur(8px)}
+.finale .fmark{position:relative;font-size:clamp(40px,8vw,104px);font-weight:800;letter-spacing:-.03em;line-height:1;
+  background:linear-gradient(100deg,#fff 24%,var(--accent-light));-webkit-background-clip:text;background-clip:text;color:transparent;
+  filter:drop-shadow(0 0 32px var(--accent-glow))}
+.finale .fsub{position:relative;margin:22px auto 30px;max-width:560px;color:var(--text-muted);font-size:16px}
+.finale .fcta{position:relative;display:inline-flex;align-items:center;gap:10px;justify-content:center}
+.finale .fcta a{display:inline-flex;align-items:center;gap:9px;padding:15px 32px;border-radius:var(--radius-pill);font-weight:700;font-size:15px;color:#fff;text-decoration:none;background:linear-gradient(135deg,var(--accent-light),var(--accent-strong));box-shadow:0 0 30px var(--accent-glow),inset 0 1px #ffffff40;transition:transform .25s,box-shadow .25s}
+.finale .fcta a:hover{transform:translateY(-2px);box-shadow:0 0 48px var(--accent-glow),inset 0 1px #ffffff40}
+
+/* ---- Lenis (плавный скролл, только десктоп) ---- */
+html.lenis,html.lenis body{height:auto}
+.lenis.lenis-smooth{scroll-behavior:auto!important}
+.lenis.lenis-smooth [data-lenis-prevent]{overscroll-behavior:contain}
+.lenis.lenis-stopped{overflow:hidden}
+
+@media (prefers-reduced-motion:reduce){
+  .coin::before{opacity:.5}
+}
 </style>
 </head>
 <body>
@@ -894,12 +1007,13 @@ tr.detail.open .dwrap{grid-template-rows:1fr}
   </div>
   <div class="wrap">
     <div class="arc" data-par="0.55" aria-hidden="true">
-      <span class="ai"><span class="jfloat"><span class="jcard" data-tilt><span class="prev"><svg viewBox="0 0 24 24"><rect x="3" y="6" width="18" height="13" rx="2.5"/><path d="M16 12h3.5"/></svg></span></span></span></span>
-      <span class="ai"><span class="jfloat"><span class="jcard" data-tilt><span class="prev"><svg viewBox="0 0 24 24"><polyline points="3 17 9 11 13 15 21 6"/><polyline points="15 6 21 6 21 12"/></svg></span></span></span></span>
-      <span class="ai"><span class="jfloat"><span class="jcard" data-tilt><span class="prev"><svg viewBox="0 0 24 24"><polygon points="12 2 2 7 12 12 22 7 12 2"/><polyline points="2 17 12 22 22 17"/><polyline points="2 12 12 17 22 12"/></svg></span></span></span></span>
-      <span class="ai"><span class="jfloat"><span class="jcard" data-tilt><span class="prev"><svg viewBox="0 0 24 24"><path d="M12 3l8 4v5c0 5-3.5 8-8 9-4.5-1-8-4-8-9V7z"/><path d="m9 12 2 2 4-4"/></svg></span></span></span></span>
-      <span class="ai"><span class="jfloat"><span class="jcard" data-tilt><span class="prev"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M9.5 8h4a2.2 2.2 0 0 1 0 4.4h-4zM9.5 12.4h4.5a2.2 2.2 0 0 1 0 4.4h-4.5zM11 6v2M11 16.8v2"/></svg></span></span></span></span>
-      <span class="ai"><span class="jfloat"><span class="jcard" data-tilt><span class="prev"><svg viewBox="0 0 24 24"><circle cx="6" cy="6" r="2.5"/><circle cx="18" cy="6" r="2.5"/><circle cx="12" cy="18" r="2.5"/><path d="M6 8.5v3a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2v-3M12 13.5v2"/></svg></span></span></span></span>
+      <span class="ai"><span class="jfloat"><span class="coin c-btc" data-tilt><span class="spec"></span><span class="face"><span class="sym">₿</span></span></span></span></span>
+      <span class="ai"><span class="jfloat"><span class="coin c-eth" data-tilt><span class="spec"></span><span class="face"><span class="sym">Ξ</span></span></span></span></span>
+      <span class="ai"><span class="jfloat"><span class="coin c-usdc" data-tilt><span class="spec"></span><span class="face"><span class="sym s-sm">$</span></span></span></span></span>
+      <span class="ai"><span class="jfloat"><span class="coin c-usdt" data-tilt><span class="spec"></span><span class="face"><span class="sym">₮</span></span></span></span></span>
+      <span class="ai"><span class="jfloat"><span class="coin c-sol" data-tilt><span class="spec"></span><span class="face"><span class="sym">◎</span></span></span></span></span>
+      <span class="ai"><span class="jfloat"><span class="coin c-cgs" data-tilt><span class="spec"></span><span class="face"><svg viewBox="0 0 24 24"><polygon points="12 3 4 8 12 13 20 8 12 3"/><polyline points="4 16 12 21 20 16"/><polyline points="4 12 12 17 20 12"/></svg></span></span></span></span></span>
+      <span class="hero-coin"><span class="jfloat"><span class="coin c-cgs" data-tilt><span class="spec"></span><span class="face"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="5"/><circle cx="12" cy="12" r="1.6"/></svg></span></span></span></span>
     </div>
     <div class="hero-inner">
       <span class="eyebrow"><span class="wm">Web3 Academy</span></span>
@@ -915,6 +1029,71 @@ tr.detail.open .dwrap{grid-template-rows:1fr}
 </header>
 
 <div class="bloom" aria-hidden="true"></div>
+
+<!-- ============ ПРОДУКТ В КАРМАНЕ — телефон + живой CGS-дашборд ============ -->
+<section class="section" id="product" style="padding-top:0">
+  <div class="wrap">
+    <div class="dive-stage">
+      <div class="dive-coins" data-par="0.3" aria-hidden="true">
+        <span class="ai"><span class="coin c-eth"><span class="spec"></span><span class="face"><span class="sym">Ξ</span></span></span></span>
+        <span class="ai"><span class="coin c-btc"><span class="spec"></span><span class="face"><span class="sym">₿</span></span></span></span>
+        <span class="ai"><span class="coin c-usdc"><span class="spec"></span><span class="face"><span class="sym s-sm">$</span></span></span></span>
+      </div>
+      <div class="dive-copy reveal">
+        <span class="eyebrow">Продукт в кармане</span>
+        <h2>Вся система CGS — у тебя на экране</h2>
+        <p class="lead">Портфель, зоны капитала и DeFi-доход в одном дашборде. То, что ты собираешь на курсе, — живёт в приложении, а не в десятке вкладок.</p>
+      </div>
+      <div class="phone-wrap" data-dive>
+        <div class="phone">
+          <div class="screen">
+            <div class="cgs-dash">
+              <div class="cgs-top">
+                <span class="wm">Web3 Academy</span>
+                <span class="cgs-live"><i></i>live</span>
+              </div>
+              <div class="cgs-card">
+                <div class="lab">Портфель · CGS</div>
+                <div class="cgs-kpi">$128 540 <span class="up">▲ 12.4%</span></div>
+                <svg class="cgs-spark" viewBox="0 0 260 40" preserveAspectRatio="none" aria-hidden="true">
+                  <defs><linearGradient id="cgsg" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#7C3AED" stop-opacity=".42"/><stop offset="1" stop-color="#7C3AED" stop-opacity="0"/></linearGradient></defs>
+                  <polygon class="area" points="0,40 0,34 30,33 60,28 90,30 120,23 150,21 180,15 210,17 240,9 260,6 260,40"/>
+                  <polyline points="0,34 30,33 60,28 90,30 120,23 150,21 180,15 210,17 240,9 260,6"/>
+                </svg>
+              </div>
+              <div class="cgs-zones">
+                <div class="cgs-zone"><b>40%</b><span>Growth</span></div>
+                <div class="cgs-zone"><b>40%</b><span>Yield</span></div>
+                <div class="cgs-zone"><b>20%</b><span>Stability</span></div>
+              </div>
+              <div class="cgs-card" style="padding:11px 12px">
+                <div class="cgs-rows">
+                  <div class="cgs-row">
+                    <span class="coin c-eth ci"><span class="spec"></span><span class="face"><span class="sym">Ξ</span></span></span>
+                    <span class="nm">Ethereum<small>staking · LST</small></span>
+                    <span class="val">$2 368<small class="g">+2.19%</small></span>
+                  </div>
+                  <div class="cgs-row">
+                    <span class="coin c-usdc ci"><span class="spec"></span><span class="face"><span class="sym s-sm">$</span></span></span>
+                    <span class="nm">USDC<small>lending · AAVE</small></span>
+                    <span class="val">$2 130<small class="g">+8.4% APY</small></span>
+                  </div>
+                  <div class="cgs-row">
+                    <span class="coin c-btc ci"><span class="spec"></span><span class="face"><span class="sym">₿</span></span></span>
+                    <span class="nm">Bitcoin<small>cold · self-custody</small></span>
+                    <span class="val">$1 256<small class="r">−3.75%</small></span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<hr class="divider" />
 
 <!-- ============ ПРЕИМУЩЕСТВА + ЦИФРЫ АКАДЕМИИ ============ -->
 <section class="section" id="why" style="padding-top:0">
@@ -1042,7 +1221,7 @@ tr.detail.open .dwrap{grid-template-rows:1fr}
 <hr class="divider" />
 
 <!-- ============ INSIGHT ============ -->
-<section class="section light" id="insight">
+<section class="section light" id="insight" data-wipe>
   <span class="section-glow right" aria-hidden="true"></span>
   <div class="wrap">
     <div class="section-head reveal">
@@ -1531,6 +1710,17 @@ tr.detail.open .dwrap{grid-template-rows:1fr}
   </div>
 </section>
 
+<!-- ============ ФИНАЛ — свечёный CGS-вордмарк ============ -->
+<section class="finale" id="finale" data-fin>
+  <div class="dotfield" aria-hidden="true"></div>
+  <div class="halo" aria-hidden="true"></div>
+  <div class="wrap">
+    <div class="fmark">Web3 Academy</div>
+    <p class="fsub">Новая программа: 3 тарифа, 5 персональных треков, 265 уроков. Окно фиксации старой цены — 7 дней.</p>
+    <div class="fcta"><a href="#tariffs-table">Смотреть тарифы</a></div>
+  </div>
+</section>
+
 <!-- ============ FOOTER (падающие штрихи) ============ -->
 <footer class="footer">
   <div class="sparks" aria-hidden="true">
@@ -1563,6 +1753,15 @@ tr.detail.open .dwrap{grid-template-rows:1fr}
   </div>
 </footer>
 
+<script src="https://cdn.jsdelivr.net/npm/lenis@1.1.14/dist/lenis.min.js"></script>
+<script>
+/* Lenis — плавный «масляный» скролл, ТОЛЬКО десктоп (на мобайле/Telegram нативный скролл не трогаем) */
+(function(){
+  if(!window.Lenis||!matchMedia('(min-width:981px)').matches||matchMedia('(prefers-reduced-motion:reduce)').matches)return;
+  try{const lenis=new Lenis({lerp:0.1,smoothWheel:true});
+    (function raf(t){lenis.raf(t);requestAnimationFrame(raf)})(0);}catch(e){}
+})();
+</script>
 <script>
 /* ===== Nav + SCROLL-SCRUB ENGINE (rAF+lerp, без видео) ===== */
 const nav=document.getElementById('nav'),progress=document.getElementById('progress');
@@ -1570,7 +1769,7 @@ const _reduce=matchMedia('(prefers-reduced-motion:reduce)').matches;
 const _desk=matchMedia('(min-width:981px)').matches;
 (function(){
   const clamp=v=>v<0?0:v>1?1:v, ease=t=>t<.5?2*t*t:1-Math.pow(-2*t+2,2)/2;
-  let pars=[],zooms=[],decks=[],vh=innerHeight,running=false,raw=scrollY;
+  let pars=[],zooms=[],decks=[],dives=[],wipes=[],vh=innerHeight,running=false,raw=scrollY;
   function measure(){
     vh=innerHeight;
     pars=[...document.querySelectorAll('[data-par]')].map(el=>{el.style.transform='';
@@ -1579,6 +1778,10 @@ const _desk=matchMedia('(min-width:981px)').matches;
       const r=el.getBoundingClientRect();return{el,top:r.top+scrollY,h:r.height};});
     decks=[...document.querySelectorAll('[data-hdeck]')].map(tr=>{const sec=tr.closest('.hpin');
       if(!sec)return null;const r=sec.getBoundingClientRect();return{tr,sec,top:r.top+scrollY};}).filter(Boolean);
+    dives=[...document.querySelectorAll('[data-dive]')].map(el=>{el.style.transform='';
+      const r=el.getBoundingClientRect();return{el,top:r.top+scrollY,h:r.height};});
+    wipes=[...document.querySelectorAll('[data-wipe]')].map(el=>{el.style.clipPath='';
+      const r=el.getBoundingClientRect();return{el,top:r.top+scrollY};});
   }
   function apply(){
     nav.classList.toggle('scrolled',raw>24);
@@ -1592,7 +1795,14 @@ const _desk=matchMedia('(min-width:981px)').matches;
       o.el.style.opacity=(0.35+0.65*p).toFixed(2);}
     for(const o of decks){const total=o.sec.offsetHeight-vh;
       const p=clamp((raw-o.top)/(total||1)),max=o.tr.scrollWidth-o.tr.parentElement.clientWidth;
-      o.tr.style.transform='translate3d('+(-p*Math.max(0,max)).toFixed(1)+'px,0,0)';}
+      o.tr.style.transform='translate3d('+(-p*Math.max(0,max)).toFixed(1)+'px,0,0)';
+      const fan=clamp(1-p/0.16),cc=o.tr.children,mid=(cc.length-1)/2;
+      for(let i=0;i<cc.length;i++){const d=i-mid;
+        cc[i].style.transform='rotate('+(d*fan*1.8).toFixed(2)+'deg) translateY('+(fan*Math.abs(d)*4).toFixed(1)+'px) scale('+(1-fan*0.03).toFixed(3)+')';}}
+    for(const o of dives){const p=ease(clamp((raw+vh-o.top)/(vh*0.95)));
+      o.el.style.transform='perspective(1200px) translateY('+((1-p)*60).toFixed(1)+'px) rotateX('+((1-p)*7).toFixed(2)+'deg) scale('+(0.82+0.26*p).toFixed(3)+')';}
+    for(const o of wipes){const p=ease(clamp((raw+vh-o.top)/(vh*0.6)));
+      o.el.style.clipPath='inset(0 '+((1-p)*100).toFixed(1)+'% 0 0)';}
   }
   function frame(){apply();if(Math.abs(scrollY-raw)>0.4){raw=scrollY;requestAnimationFrame(frame);}else{raw=scrollY;apply();running=false;}}
   addEventListener('scroll',()=>{raw=scrollY;if(!running){running=true;requestAnimationFrame(frame);}},{passive:true});
