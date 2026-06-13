@@ -701,9 +701,10 @@ tr.detail.open .dwrap{grid-template-rows:1fr}
 /* scroll-scrubbed кинематографичный фон (дым/чернила, грейд в фиолетовый) */
 .cine #smokeBg{display:block;position:fixed;inset:0;width:100%;height:100%;object-fit:cover;
   z-index:-1;pointer-events:none;opacity:0;transition:opacity 1.4s ease}
-.cine #smokeBg.ready{opacity:0.8}
+.cine #smokeBg.ready{opacity:0.95}
 .cine .smoke-scrim{display:block;position:fixed;inset:0;z-index:-1;pointer-events:none;
-  background:linear-gradient(180deg,rgba(10,9,13,0.62),rgba(10,9,13,0.30) 42%,rgba(10,9,13,0.66))}
+  background:linear-gradient(180deg,rgba(8,7,11,0.46),rgba(8,7,11,0.20) 44%,rgba(8,7,11,0.52))}
+.cine .sparks{display:none}  /* реалистичный фон-Земля — звёзды/огни уже в кадре, искры убираем */
 .cine #cineCore{display:block;position:fixed;left:0;top:0;width:150px;height:150px;margin:-75px 0 0 -75px;
   z-index:1;pointer-events:none;will-change:transform,opacity}
 #cineCore .c-base,#cineCore .c-g,#cineCore .c-au{position:absolute;inset:0;border-radius:50%}
@@ -811,7 +812,7 @@ tr.detail.open .dwrap{grid-template-rows:1fr}
 <body>
 
 <div class="bgfx" aria-hidden="true"></div>
-<video id="smokeBg" muted playsinline preload="auto" aria-hidden="true" poster="smoke_poster.jpg"><source src="smoke.mp4" type="video/mp4"></video>
+<video id="smokeBg" muted playsinline preload="auto" aria-hidden="true" poster="smoke_poster.jpg?v=3"><source src="smoke.mp4?v=3" type="video/mp4"></video>
 <div class="smoke-scrim" aria-hidden="true"></div>
 <canvas id="horizon" aria-hidden="true"></canvas>
 <div id="cineCore" aria-hidden="true"><span class="c-base"></span><span class="c-g"></span><span class="c-au"></span><span class="c-ring"></span></div>
