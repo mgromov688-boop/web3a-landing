@@ -934,16 +934,14 @@ tr.detail.open .dwrap{grid-template-rows:1fr}
 .cgs-row .val .r{color:var(--danger)}
 
 /* ---- DIVE: телефон поднимается и приближается по скроллу ---- */
-.phone-photo{display:block;width:344px;max-width:90vw;height:auto;
-  -webkit-mask:radial-gradient(125% 105% at 50% 42%,#000 58%,transparent 95%);
-  mask:radial-gradient(125% 105% at 50% 42%,#000 58%,transparent 95%)}
+.phone-photo{display:block;width:362px;max-width:92vw;height:auto}
 .dive-stage{position:relative;display:flex;align-items:center;justify-content:center;gap:48px;min-height:78vh;flex-wrap:wrap}
-.dive-copy{max-width:420px}
+.dive-copy{max-width:420px;position:relative;z-index:2}
 .dive-coins{position:absolute;inset:0;pointer-events:none;z-index:0}
-.dive-coins .ai{position:absolute;width:64px;height:64px}
-.dive-coins .ai:nth-child(1){left:8%;top:18%}
-.dive-coins .ai:nth-child(2){right:10%;top:24%;width:50px;height:50px}
-.dive-coins .ai:nth-child(3){left:14%;bottom:16%;width:46px;height:46px}
+.dive-coins .ai{position:absolute;width:62px;height:62px}
+.dive-coins .ai:nth-child(1){left:13%;top:13%}
+.dive-coins .ai:nth-child(2){right:15%;top:30%;width:54px;height:54px}
+.dive-coins .ai:nth-child(3){left:45%;top:8%;width:48px;height:48px}
 .js [data-dive]{will-change:transform}
 @media (max-width:980px){.dive-stage{min-height:0;gap:28px}.dive-coins{display:none}}
 
@@ -1165,7 +1163,7 @@ html.lenis,html.lenis body{height:auto}
 <section class="section section-alt" id="pains">
   <div class="sec-floats" aria-hidden="true">
     <span class="fc" data-par="0.55" style="width:64px;height:64px;left:5%;top:15%"><span class="coin c-btc"><span class="face"><span class="sym">₿</span></span></span></span>
-    <span class="fc" data-par="0.3" style="width:46px;height:46px;right:7%;bottom:14%"><span class="coin c-usdt"><span class="face"><span class="sym">₮</span></span></span></span>
+    <span class="fc" data-par="0.3" style="width:46px;height:46px;right:7%;bottom:14%"><span class="coin c-usdc"><span class="face"><span class="sym s-sm">$</span></span></span></span>
   </div>
   <div class="wrap">
     <div class="section-head" data-rise>
@@ -1405,7 +1403,7 @@ html.lenis,html.lenis body{height:auto}
 <section class="section section-alt" id="tracks">
   <div class="sec-floats" aria-hidden="true">
     <span class="fc" data-par="0.5" style="width:60px;height:60px;right:6%;top:12%"><span class="coin c-sol"><span class="face"><svg viewBox="0 0 24 24"><path d="M6.4 6.2h12.2l-2.8 2.8H3.6z"/><path d="M3.6 10.6h12.2l2.8 2.8H6.4z" opacity=".8"/><path d="M6.4 15h12.2l-2.8 2.8H3.6z"/></svg></span></span></span>
-    <span class="fc" data-par="0.28" style="width:44px;height:44px;left:7%;bottom:16%"><span class="coin c-xaut"><span class="face"><span class="sym">₮</span></span></span></span>
+    <span class="fc" data-par="0.28" style="width:44px;height:44px;left:7%;bottom:16%"><span class="coin c-avax"><span class="face"><span class="sym">₮</span></span></span></span>
   </div>
   <div class="wrap">
     <div class="section-head" data-rise>
@@ -1611,7 +1609,7 @@ html.lenis,html.lenis body{height:auto}
 <!-- ============ EARLY BIRD ============ -->
 <section class="section section-alt" id="earlybird">
   <div class="sec-floats" aria-hidden="true">
-    <span class="fc" data-par="0.52" style="width:62px;height:62px;right:6%;top:13%"><span class="coin c-xaut"><span class="face"><span class="sym">₮</span></span></span></span>
+    <span class="fc" data-par="0.52" style="width:62px;height:62px;right:6%;top:13%"><span class="coin c-bnb"><span class="face"><span class="sym">₮</span></span></span></span>
     <span class="fc" data-par="0.3" style="width:46px;height:46px;left:6%;bottom:14%"><span class="coin c-sol"><span class="face"><svg viewBox="0 0 24 24"><path d="M6.4 6.2h12.2l-2.8 2.8H3.6z"/><path d="M3.6 10.6h12.2l2.8 2.8H6.4z" opacity=".8"/><path d="M6.4 15h12.2l-2.8 2.8H3.6z"/></svg></span></span></span>
   </div>
   <div class="wrap">
@@ -1819,7 +1817,7 @@ html.lenis,html.lenis body{height:auto}
   if(!matchMedia('(min-width:900px)').matches) return;
   const map={'c-btc':'btc','c-eth':'eth','c-usdc':'usdc','c-sol':'sol','c-avax':'avax','c-bnb':'bnb','c-cgs':'cgs'};
   const V=(window.__COINV||1);
-  document.querySelectorAll('.arc .coin').forEach(c=>{
+  document.querySelectorAll('.arc .coin, .dive-coins .coin, .sec-floats .coin').forEach(c=>{
     const k=Object.keys(map).find(x=>c.classList.contains(x)); if(!k)return;
     const img=new Image(); img.className='coin-img'; img.alt=''; img.decoding='async';
     img.onerror=function(){img.remove();};
