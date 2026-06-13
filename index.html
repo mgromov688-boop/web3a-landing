@@ -934,6 +934,9 @@ tr.detail.open .dwrap{grid-template-rows:1fr}
 .cgs-row .val .r{color:var(--danger)}
 
 /* ---- DIVE: телефон поднимается и приближается по скроллу ---- */
+.phone-photo{display:block;width:344px;max-width:90vw;height:auto;
+  -webkit-mask:radial-gradient(125% 105% at 50% 42%,#000 58%,transparent 95%);
+  mask:radial-gradient(125% 105% at 50% 42%,#000 58%,transparent 95%)}
 .dive-stage{position:relative;display:flex;align-items:center;justify-content:center;gap:48px;min-height:78vh;flex-wrap:wrap}
 .dive-copy{max-width:420px}
 .dive-coins{position:absolute;inset:0;pointer-events:none;z-index:0}
@@ -1071,7 +1074,8 @@ html.lenis,html.lenis body{height:auto}
         <p class="lead">Вся система CGS — в одной удобной Майнд-карте: Зоны Капитала, DeFi-инструменты, план действий на росте и падении рынка. Она живёт в Майнд-карте, а не в десятке таблиц.</p>
       </div>
       <div class="phone-wrap" data-dive>
-        <div class="phone">
+        <img class="phone-photo" src="assets/phone-hand.png?v=1" alt="Приложение Web3 Academy — портфель и система CGS в руке">
+        <div class="phone" hidden>
           <div class="screen">
             <div class="cgs-dash">
               <div class="cgs-top">
