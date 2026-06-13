@@ -959,6 +959,13 @@ tr.detail.open .dwrap{grid-template-rows:1fr}
 .coin:has(.coin-img){background:none!important;box-shadow:0 26px 50px rgba(0,0,0,.6),0 0 42px var(--accent-muted)}
 .coin:has(.coin-img)::before{display:none}
 .coin:has(.coin-img) .face,.coin:has(.coin-img) .spec{display:none}
+/* ---- pinned «числа собираются по скроллу» ---- */
+.pinnum{position:relative;height:300vh;margin-top:30px}
+.pinnum-stick{position:sticky;top:0;height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:36px}
+.pinnum-head{text-align:center}
+.pinnum .stats{width:100%}
+[data-seq]>*{transition:none;will-change:transform,opacity}
+@media (max-width:980px){.pinnum{height:auto;margin-top:24px}.pinnum-stick{position:static;height:auto;display:block;gap:0}[data-seq]>*{opacity:1!important;transform:none!important}}
 
 /* ---- ФИНАЛ: свечёный вордмарк на halftone ---- */
 .finale{position:relative;padding:120px 0 90px;text-align:center;overflow:hidden}
@@ -1133,12 +1140,17 @@ html.lenis,html.lenis body{height:auto}
         </div>
       </div>
     </div>
-    <div class="stats stagger">
-      <div class="stat"><div class="num"><span data-cnt="4500">4 500</span>+</div><div class="sub">Инвесторов прошли обучение и внедрили систему CGS</div></div>
-      <div class="stat"><div class="num">$<span data-cnt="107">107</span>M+</div><div class="sub">Капитал участников сообщества</div></div>
-      <div class="stat"><div class="num"><span data-cnt="73">73</span>%</div><div class="sub">Студентов ставят нам 9.67 из 10 в опросе рекомендаций</div></div>
-      <div class="stat"><div class="num"><span data-cnt="8.7" data-dec="1">8.7</span></div><div class="sub">Средняя оценка качества программы</div></div>
-      <div class="stat"><div class="num"><span data-cnt="65">65</span>%</div><div class="sub">Студентов запускают реальный портфель по системе CGS в первый месяц обучения</div></div>
+    <div class="pinnum">
+      <div class="pinnum-stick">
+        <div class="pinnum-head" data-rise><span class="eyebrow">Академия в цифрах</span><h2>Система, которой доверяют</h2></div>
+        <div class="stats" data-seq>
+          <div class="stat"><div class="num"><span data-cnt="4500">4 500</span>+</div><div class="sub">Инвесторов прошли обучение и внедрили систему CGS</div></div>
+          <div class="stat"><div class="num">$<span data-cnt="107">107</span>M+</div><div class="sub">Капитал участников сообщества</div></div>
+          <div class="stat"><div class="num"><span data-cnt="73">73</span>%</div><div class="sub">Студентов ставят нам 9.67 из 10 в опросе рекомендаций</div></div>
+          <div class="stat"><div class="num"><span data-cnt="8.7" data-dec="1">8.7</span></div><div class="sub">Средняя оценка качества программы</div></div>
+          <div class="stat"><div class="num"><span data-cnt="65">65</span>%</div><div class="sub">Студентов запускают реальный портфель по системе CGS в первый месяц обучения</div></div>
+        </div>
+      </div>
     </div>
   </div>
 </section>
@@ -1819,7 +1831,7 @@ const _reduce=matchMedia('(prefers-reduced-motion:reduce)').matches;
 const _desk=matchMedia('(min-width:981px)').matches;
 (function(){
   const clamp=v=>v<0?0:v>1?1:v, ease=t=>t<.5?2*t*t:1-Math.pow(-2*t+2,2)/2;
-  let pars=[],zooms=[],decks=[],dives=[],wipes=[],rises=[],vh=innerHeight,running=false,raw=scrollY;
+  let pars=[],zooms=[],decks=[],dives=[],wipes=[],rises=[],seqs=[],vh=innerHeight,running=false,raw=scrollY;
   function measure(){
     vh=innerHeight;
     pars=[...document.querySelectorAll('[data-par]')].map(el=>{el.style.transform='';
@@ -1834,6 +1846,9 @@ const _desk=matchMedia('(min-width:981px)').matches;
       const r=el.getBoundingClientRect();return{el,top:r.top+scrollY};});
     rises=[...document.querySelectorAll('[data-rise]')].map(el=>{el.style.transform='';el.style.opacity='';
       const r=el.getBoundingClientRect();return{el,top:r.top+scrollY};});
+    seqs=[...document.querySelectorAll('[data-seq]')].map(el=>{const sec=el.closest('.pinnum');if(!sec)return null;
+      [...el.children].forEach(k=>{k.style.transform='';k.style.opacity='';});
+      const r=sec.getBoundingClientRect();return{el,sec,top:r.top+scrollY,kids:[...el.children]};}).filter(Boolean);
   }
   function apply(){
     nav.classList.toggle('scrolled',raw>24);
@@ -1858,6 +1873,10 @@ const _desk=matchMedia('(min-width:981px)').matches;
     for(const o of rises){const p=ease(clamp((raw+vh-o.top)/(vh*0.55)));
       o.el.style.opacity=(0.08+0.92*p).toFixed(2);
       o.el.style.transform='translate3d(0,'+((1-p)*46).toFixed(1)+'px,0) scale('+(0.965+0.035*p).toFixed(3)+')';}
+    for(const o of seqs){const total=o.sec.offsetHeight-vh,p=clamp((raw-o.top)/(total||1)),n=o.kids.length;
+      for(let i=0;i<n;i++){const cp=ease(clamp(p*(n+1)-i));
+        o.kids[i].style.opacity=cp.toFixed(2);
+        o.kids[i].style.transform='translate3d(0,'+((1-cp)*44).toFixed(1)+'px,0) scale('+(0.88+0.12*cp).toFixed(3)+')';}}
   }
   function frame(){apply();if(Math.abs(scrollY-raw)>0.4){raw=scrollY;requestAnimationFrame(frame);}else{raw=scrollY;apply();running=false;}}
   addEventListener('scroll',()=>{raw=scrollY;if(!running){running=true;requestAnimationFrame(frame);}},{passive:true});
