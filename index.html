@@ -885,6 +885,8 @@ tr.detail.open .dwrap{grid-template-rows:1fr}
 .c-usdt{--c-hi:#5FD0AA;--c-lo:#157A5A}
 .c-xaut{--c-hi:#F0D27A;--c-lo:#9A7A1E}
 .c-sol{--c-hi:#C9A0FF;--c-lo:#6A30C0}
+.c-avax{--c-hi:#FF5A66;--c-lo:#B11722}
+.c-bnb{--c-hi:#F8D26B;--c-lo:#B8860B}
 .coin .sym.s-sm{font-size:33px}
 .arc .jfloat{display:block;width:100%;height:100%}
 /* центральная hero-монета */
@@ -954,6 +956,9 @@ tr.detail.open .dwrap{grid-template-rows:1fr}
 /* ---- слот под фотореал-PNG монеты (хот-своп; нет файла → CSS-монета) ---- */
 .coin-img{position:absolute;inset:-3%;width:106%;height:106%;object-fit:contain;z-index:5;pointer-events:none;
   filter:drop-shadow(0 22px 40px rgba(0,0,0,.6))}
+.coin:has(.coin-img){background:none!important;box-shadow:0 26px 50px rgba(0,0,0,.6),0 0 42px var(--accent-muted)}
+.coin:has(.coin-img)::before{display:none}
+.coin:has(.coin-img) .face,.coin:has(.coin-img) .spec{display:none}
 
 /* ---- ФИНАЛ: свечёный вордмарк на halftone ---- */
 .finale{position:relative;padding:120px 0 90px;text-align:center;overflow:hidden}
@@ -1024,9 +1029,9 @@ html.lenis,html.lenis body{height:auto}
       <span class="ai"><span class="jfloat"><span class="coin c-btc" data-tilt><span class="spec"></span><span class="face"><span class="sym">₿</span></span></span></span></span>
       <span class="ai"><span class="jfloat"><span class="coin c-eth" data-tilt><span class="spec"></span><span class="face"><svg viewBox="0 0 24 24"><path d="M12 2 6.2 12.1 12 15.6 17.8 12.1Z" opacity=".7"/><path d="M6.2 13.3 12 16.8 17.8 13.3 12 22Z"/></svg></span></span></span></span>
       <span class="ai"><span class="jfloat"><span class="coin c-usdc" data-tilt><span class="spec"></span><span class="face"><span class="sym s-sm">$</span></span></span></span></span>
-      <span class="ai"><span class="jfloat"><span class="coin c-usdt" data-tilt><span class="spec"></span><span class="face"><svg viewBox="0 0 24 24"><path d="M3.5 5h17v3.4h-6.4v2.7c3.4.18 5.9.86 5.9 1.7 0 .93-3.1 1.7-7 1.7s-7-.77-7-1.7c0-.84 2.5-1.52 5.9-1.7V8.4H3.5z"/></svg></span></span></span></span>
-      <span class="ai"><span class="jfloat"><span class="coin c-xaut" data-tilt><span class="spec"></span><span class="face"><svg viewBox="0 0 24 24"><path d="M3.5 5h17v3.4h-6.4v2.7c3.4.18 5.9.86 5.9 1.7 0 .93-3.1 1.7-7 1.7s-7-.77-7-1.7c0-.84 2.5-1.52 5.9-1.7V8.4H3.5z"/></svg></span></span></span></span>
       <span class="ai"><span class="jfloat"><span class="coin c-sol" data-tilt><span class="spec"></span><span class="face"><svg viewBox="0 0 24 24"><path d="M6.4 6.2h12.2l-2.8 2.8H3.6z"/><path d="M3.6 10.6h12.2l2.8 2.8H6.4z" opacity=".8"/><path d="M6.4 15h12.2l-2.8 2.8H3.6z"/></svg></span></span></span></span>
+      <span class="ai"><span class="jfloat"><span class="coin c-avax" data-tilt><span class="spec"></span><span class="face"><svg viewBox="0 0 24 24"><path d="M12 4l8 14H4z"/><path d="M15.5 18l2.2-3.8h3.1L18.6 18z" opacity=".85"/></svg></span></span></span></span>
+      <span class="ai"><span class="jfloat"><span class="coin c-bnb" data-tilt><span class="spec"></span><span class="face"><svg viewBox="0 0 24 24"><path d="M12 3l2.5 2.5L12 8 9.5 5.5zM6 9l2.5 2.5L6 14l-2.5-2.5zM18 9l2.5 2.5L18 14l-2.5-2.5zM12 10l2.5 2.5L12 15l-2.5-2.5zM12 16l2.5 2.5L12 21l-2.5-2.5z"/></svg></span></span></span></span>
       <span class="hero-coin"><span class="jfloat"><span class="coin c-cgs" data-tilt><span class="spec"></span><span class="face"><svg viewBox="0 0 24 24"><circle cx="5" cy="17.6" r="2.4"/><rect x="10.2" y="8" width="4.3" height="11.9" rx="2.15"/><rect x="16.7" y="3.4" width="4.3" height="16.5" rx="2.15"/></svg></span></span></span></span>
     </div>
     <div class="hero-inner">
@@ -1795,7 +1800,8 @@ html.lenis,html.lenis body{height:auto}
 <script>
 /* фотореал-монеты: подставляем PNG из assets/coins/ если файл есть (иначе остаётся CSS-монета) */
 (function(){
-  const map={'c-btc':'btc','c-eth':'eth','c-usdc':'usdc','c-usdt':'usdt','c-xaut':'xaut','c-sol':'sol','c-cgs':'cgs'};
+  if(!matchMedia('(min-width:900px)').matches) return;
+  const map={'c-btc':'btc','c-eth':'eth','c-usdc':'usdc','c-sol':'sol','c-avax':'avax','c-bnb':'bnb'};
   const V=(window.__COINV||1);
   document.querySelectorAll('.arc .coin').forEach(c=>{
     const k=Object.keys(map).find(x=>c.classList.contains(x)); if(!k)return;
