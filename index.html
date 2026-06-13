@@ -1817,7 +1817,7 @@ html.lenis,html.lenis body{height:auto}
 /* фотореал-монеты: подставляем PNG из assets/coins/ если файл есть (иначе остаётся CSS-монета) */
 (function(){
   if(!matchMedia('(min-width:900px)').matches) return;
-  const map={'c-btc':'btc','c-eth':'eth','c-usdc':'usdc','c-sol':'sol','c-avax':'avax','c-bnb':'bnb'};
+  const map={'c-btc':'btc','c-eth':'eth','c-usdc':'usdc','c-sol':'sol','c-avax':'avax','c-bnb':'bnb','c-cgs':'cgs'};
   const V=(window.__COINV||1);
   document.querySelectorAll('.arc .coin').forEach(c=>{
     const k=Object.keys(map).find(x=>c.classList.contains(x)); if(!k)return;
