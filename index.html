@@ -949,6 +949,12 @@ tr.detail.open .dwrap{grid-template-rows:1fr}
 .sec-floats .coin .sym{font-size:20px}
 @media (max-width:980px){.sec-floats{display:none}}
 
+/* ---- scroll-driven подъём заголовков (непрерывный scrub, не one-shot) ---- */
+[data-rise]{transition:none;will-change:transform,opacity}
+/* ---- слот под фотореал-PNG монеты (хот-своп; нет файла → CSS-монета) ---- */
+.coin-img{position:absolute;inset:-3%;width:106%;height:106%;object-fit:contain;z-index:5;pointer-events:none;
+  filter:drop-shadow(0 22px 40px rgba(0,0,0,.6))}
+
 /* ---- ФИНАЛ: свечёный вордмарк на halftone ---- */
 .finale{position:relative;padding:120px 0 90px;text-align:center;overflow:hidden}
 .finale .dotfield{position:absolute;inset:0;pointer-events:none;opacity:.5;
@@ -1141,7 +1147,7 @@ html.lenis,html.lenis body{height:auto}
     <span class="fc" data-par="0.3" style="width:46px;height:46px;right:7%;bottom:14%"><span class="coin c-usdt"><span class="face"><span class="sym">₮</span></span></span></span>
   </div>
   <div class="wrap">
-    <div class="section-head reveal">
+    <div class="section-head" data-rise>
       <span class="eyebrow">Точка старта</span>
       <h2>Вам подходит, если</h2>
     </div>
@@ -1163,7 +1169,7 @@ html.lenis,html.lenis body{height:auto}
 <!-- ============ ТАРИФЫ — НАПОЛНЕНИЕ ПО МОДУЛЯМ (app-mockup рамка) ============ -->
 <section class="section" id="tariffs-table">
   <div class="wrap">
-    <div class="section-head reveal">
+    <div class="section-head" data-rise>
       <span class="eyebrow">Сравнение тарифов</span>
       <h2>Наполнение по модулям</h2>
       <p class="lead">Что входит в каждый тариф — модуль за модулем.</p>
@@ -1236,7 +1242,7 @@ html.lenis,html.lenis body{height:auto}
 <section class="section light" id="insight" data-wipe>
   <span class="section-glow right" data-par="0.32" aria-hidden="true"></span>
   <div class="wrap">
-    <div class="section-head reveal">
+    <div class="section-head" data-rise>
       <span class="eyebrow">Insight</span>
       <h2>Настоящие инвесторы не гонятся за прибылью</h2>
       <p class="lead">Они строят систему управления капиталом, в которой прибыль становится закономерной.</p>
@@ -1381,7 +1387,7 @@ html.lenis,html.lenis body{height:auto}
     <span class="fc" data-par="0.28" style="width:44px;height:44px;left:7%;bottom:16%"><span class="coin c-xaut"><span class="face"><span class="sym">₮</span></span></span></span>
   </div>
   <div class="wrap">
-    <div class="section-head reveal">
+    <div class="section-head" data-rise>
       <span class="eyebrow">Персональные треки</span>
       <h2>Ваш маршрут внутри курса</h2>
       <p class="lead">Трек — это персональный маршрут внутри курса. Диагностика из 6 вопросов выстраивает его автоматически под вашу цель.</p>
@@ -1492,7 +1498,7 @@ html.lenis,html.lenis body{height:auto}
     <span class="fc" data-par="0.3" style="width:46px;height:46px;right:6%;bottom:15%"><span class="coin c-eth"><span class="face"><svg viewBox="0 0 24 24"><path d="M12 2 6.2 12.1 12 15.6 17.8 12.1Z" opacity=".7"/><path d="M6.2 13.3 12 16.8 17.8 13.3 12 22Z"/></svg></span></span></span>
   </div>
   <div class="wrap">
-    <div class="section-head reveal">
+    <div class="section-head" data-rise>
       <span class="eyebrow">Подробно о тарифах</span>
       <h2>Какой тариф ваш</h2>
     </div>
@@ -1588,7 +1594,7 @@ html.lenis,html.lenis body{height:auto}
     <span class="fc" data-par="0.3" style="width:46px;height:46px;left:6%;bottom:14%"><span class="coin c-sol"><span class="face"><svg viewBox="0 0 24 24"><path d="M6.4 6.2h12.2l-2.8 2.8H3.6z"/><path d="M3.6 10.6h12.2l2.8 2.8H6.4z" opacity=".8"/><path d="M6.4 15h12.2l-2.8 2.8H3.6z"/></svg></span></span></span>
   </div>
   <div class="wrap">
-    <div class="section-head reveal">
+    <div class="section-head" data-rise>
       <span class="eyebrow eyeb-green">Early Bird</span>
       <h2>Окно фиксации цены — 7 дней</h2>
       <p class="lead">Запускается новая версия курса: увеличенные сроки, обновлённая структура, перераспределённый контент по тарифам, 5 персональных треков. На этапе запуска — окно фиксации старой цены на 7 дней.</p>
@@ -1632,7 +1638,7 @@ html.lenis,html.lenis body{height:auto}
       </div>
     </div>
 
-    <div class="section-head reveal" style="margin-bottom:28px">
+    <div class="section-head" data-rise style="margin-bottom:28px">
       <span class="eyebrow">Было / стало / сколько должно стоить</span>
     </div>
     <div class="mockup eb-table" data-zoom style="max-width:var(--maxw-mid)">
@@ -1674,7 +1680,7 @@ html.lenis,html.lenis body{height:auto}
       </table>
     </div>
 
-    <div class="section-head reveal" style="margin:52px auto 28px">
+    <div class="section-head" data-rise style="margin:52px auto 28px">
       <span class="eyebrow">Бонусы — только для тех, кто успел</span>
     </div>
     <div class="bonuses stagger">
@@ -1696,7 +1702,7 @@ html.lenis,html.lenis body{height:auto}
       </div>
     </div>
 
-    <div class="section-head reveal" style="margin:52px auto 28px">
+    <div class="section-head" data-rise style="margin:52px auto 28px">
       <span class="eyebrow">Частые вопросы</span>
     </div>
     <div class="faq stagger">
@@ -1787,13 +1793,27 @@ html.lenis,html.lenis body{height:auto}
 })();
 </script>
 <script>
+/* фотореал-монеты: подставляем PNG из assets/coins/ если файл есть (иначе остаётся CSS-монета) */
+(function(){
+  const map={'c-btc':'btc','c-eth':'eth','c-usdc':'usdc','c-usdt':'usdt','c-xaut':'xaut','c-sol':'sol','c-cgs':'cgs'};
+  const V=(window.__COINV||1);
+  document.querySelectorAll('.arc .coin').forEach(c=>{
+    const k=Object.keys(map).find(x=>c.classList.contains(x)); if(!k)return;
+    const img=new Image(); img.className='coin-img'; img.alt=''; img.decoding='async';
+    img.onerror=function(){img.remove();};
+    img.src='assets/coins/'+map[k]+'.png?v='+V;
+    c.insertBefore(img,c.firstChild);
+  });
+})();
+</script>
+<script>
 /* ===== Nav + SCROLL-SCRUB ENGINE (rAF+lerp, без видео) ===== */
 const nav=document.getElementById('nav'),progress=document.getElementById('progress');
 const _reduce=matchMedia('(prefers-reduced-motion:reduce)').matches;
 const _desk=matchMedia('(min-width:981px)').matches;
 (function(){
   const clamp=v=>v<0?0:v>1?1:v, ease=t=>t<.5?2*t*t:1-Math.pow(-2*t+2,2)/2;
-  let pars=[],zooms=[],decks=[],dives=[],wipes=[],vh=innerHeight,running=false,raw=scrollY;
+  let pars=[],zooms=[],decks=[],dives=[],wipes=[],rises=[],vh=innerHeight,running=false,raw=scrollY;
   function measure(){
     vh=innerHeight;
     pars=[...document.querySelectorAll('[data-par]')].map(el=>{el.style.transform='';
@@ -1805,6 +1825,8 @@ const _desk=matchMedia('(min-width:981px)').matches;
     dives=[...document.querySelectorAll('[data-dive]')].map(el=>{el.style.transform='';
       const r=el.getBoundingClientRect();return{el,top:r.top+scrollY,h:r.height};});
     wipes=[...document.querySelectorAll('[data-wipe]')].map(el=>{el.style.clipPath='';
+      const r=el.getBoundingClientRect();return{el,top:r.top+scrollY};});
+    rises=[...document.querySelectorAll('[data-rise]')].map(el=>{el.style.transform='';el.style.opacity='';
       const r=el.getBoundingClientRect();return{el,top:r.top+scrollY};});
   }
   function apply(){
@@ -1827,6 +1849,9 @@ const _desk=matchMedia('(min-width:981px)').matches;
       o.el.style.transform='perspective(1200px) translateY('+((1-p)*60).toFixed(1)+'px) rotateX('+((1-p)*7).toFixed(2)+'deg) scale('+(0.82+0.26*p).toFixed(3)+')';}
     for(const o of wipes){const p=ease(clamp((raw+vh-o.top)/(vh*0.6)));
       o.el.style.clipPath='inset(0 '+((1-p)*100).toFixed(1)+'% 0 0)';}
+    for(const o of rises){const p=ease(clamp((raw+vh-o.top)/(vh*0.55)));
+      o.el.style.opacity=(0.08+0.92*p).toFixed(2);
+      o.el.style.transform='translate3d(0,'+((1-p)*46).toFixed(1)+'px,0) scale('+(0.965+0.035*p).toFixed(3)+')';}
   }
   function frame(){apply();if(Math.abs(scrollY-raw)>0.4){raw=scrollY;requestAnimationFrame(frame);}else{raw=scrollY;apply();running=false;}}
   addEventListener('scroll',()=>{raw=scrollY;if(!running){running=true;requestAnimationFrame(frame);}},{passive:true});
