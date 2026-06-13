@@ -697,7 +697,13 @@ tr.detail.open .dwrap{grid-template-rows:1fr}
     rgba(var(--al-rgb),0.10),transparent 60%)}
 
 /* ============ CINEMATIC LAYERS (только desktop + без reduce: флаг .cine) ============ */
-#cineCore,.dive,.painveil,#horizon,.chapters{display:none}
+#cineCore,.dive,.painveil,#horizon,.chapters,#smokeBg,.smoke-scrim{display:none}
+/* scroll-scrubbed кинематографичный фон (дым/чернила, грейд в фиолетовый) */
+.cine #smokeBg{display:block;position:fixed;inset:0;width:100%;height:100%;object-fit:cover;
+  z-index:-1;pointer-events:none;opacity:0;transition:opacity 1.4s ease}
+.cine #smokeBg.ready{opacity:0.8}
+.cine .smoke-scrim{display:block;position:fixed;inset:0;z-index:-1;pointer-events:none;
+  background:linear-gradient(180deg,rgba(10,9,13,0.62),rgba(10,9,13,0.30) 42%,rgba(10,9,13,0.66))}
 .cine #cineCore{display:block;position:fixed;left:0;top:0;width:150px;height:150px;margin:-75px 0 0 -75px;
   z-index:1;pointer-events:none;will-change:transform,opacity}
 #cineCore .c-base,#cineCore .c-g,#cineCore .c-au{position:absolute;inset:0;border-radius:50%}
@@ -716,7 +722,7 @@ tr.detail.open .dwrap{grid-template-rows:1fr}
   background-size:90px 90px}
 .cine .painveil{display:block;position:fixed;inset:0;z-index:78;pointer-events:none;opacity:0;
   background:radial-gradient(ellipse at center,transparent 56%,rgba(248,113,113,0.10) 100%)}
-.cine #horizon{display:block;position:fixed;left:0;bottom:0;width:100%;height:30vh;z-index:0;pointer-events:none}
+.cine #horizon{display:none}  /* дым-фон заменил горизонт (принцип 19: не перегружаем) */
 .cine .chapters{display:flex;position:fixed;left:26px;top:50%;transform:translateY(-50%);z-index:55;
   flex-direction:column;gap:18px}
 .chapters a{display:flex;align-items:center;gap:10px;color:var(--text-dim);
@@ -805,6 +811,8 @@ tr.detail.open .dwrap{grid-template-rows:1fr}
 <body>
 
 <div class="bgfx" aria-hidden="true"></div>
+<video id="smokeBg" muted playsinline preload="auto" aria-hidden="true" poster="smoke_poster.jpg"><source src="smoke.mp4" type="video/mp4"></video>
+<div class="smoke-scrim" aria-hidden="true"></div>
 <canvas id="horizon" aria-hidden="true"></canvas>
 <div id="cineCore" aria-hidden="true"><span class="c-base"></span><span class="c-g"></span><span class="c-au"></span><span class="c-ring"></span></div>
 <div class="painveil" aria-hidden="true"></div>
@@ -1541,6 +1549,11 @@ if(!CINE){
         hcv=document.getElementById('horizon'),hctx=hcv.getContext('2d'),
         chaps=[...document.querySelectorAll('#chapters a')];
   const lerp=(a,b,t)=>a+(b-a)*t,clamp=v=>v<0?0:v>1?1:v,ss=t=>t*t*(3-2*t);
+  /* scroll-scrubbed дым-фон: позиция кадра = прогресс скролла */
+  const smoke=document.getElementById('smokeBg');let smokeDur=0;
+  if(smoke){const onMeta=()=>{smokeDur=smoke.duration||0;smoke.classList.add('ready');};
+    smoke.addEventListener('loadedmetadata',onMeta);
+    if(smoke.readyState>=1)onMeta();}
 
   /* Маршрут ядра: вьюпорт-цели на центр каждой секции (x,y — доли экрана;
      s — масштаб; o — яркость; g — подмес success; au — подмес золота) */
@@ -1637,7 +1650,9 @@ if(!CINE){
     /* главы */
     let c=0;for(let i=0;i<chPos.length;i++)if(smooth>=chPos[i])c=i;
     if(c!==chOn){chOn=c;chaps.forEach((a,i)=>a.classList.toggle('on',i===c));}
-    drawHorizon(pG);
+    /* scrub дым-фона (вместо горизонта) */
+    if(smoke&&smokeDur){const tt=pG*(smokeDur-0.06);
+      if(Math.abs(smoke.currentTime-tt)>0.033){try{smoke.currentTime=tt;}catch(e){}}}
     if(smooth!==raw)requestAnimationFrame(frame);else running=false;
   }
   function kick(){raw=scrollY;if(!running){running=true;requestAnimationFrame(frame);}}
