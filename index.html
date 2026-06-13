@@ -730,7 +730,7 @@ tr.detail.open .dwrap{grid-template-rows:1fr}
 .chapters a.on .ch-label,.chapters a:hover .ch-label{opacity:1;transform:none}
 @media (max-width:1240px){.cine .chapters{display:none}}
 .dive-gap{height:0}
-.cine .dive-gap{height:115vh}
+.cine .dive-gap{height:46vh}
 
 /* ============ REVEAL ============ */
 /* reveal скрывает контент ТОЛЬКО при работающем JS (защита от QuickLook/просмотрщиков без JS) */
@@ -1570,7 +1570,7 @@ if(!CINE){
       .sort((a,b)=>a.at-b.at);
     if(keys.length){keys[0].at=0;keys[keys.length-1].at=docH;}  /* финал достижим ровно внизу */
     dz=[...document.querySelectorAll('.dive-gap')].map(el=>{
-      const t=el.offsetTop,h=el.offsetHeight;return {a:t-vh*0.9,b:t+h+vh*0.1};});
+      const t=el.offsetTop,h=el.offsetHeight;return {a:t-vh*0.55,b:t+h+vh*0.55};});
     const p=document.getElementById('pains');
     painZone=p?{a:p.offsetTop-vh*0.6,b:p.offsetTop+p.offsetHeight-vh*0.2}:null;
     chPos=chaps.map(a=>{const el=document.querySelector(a.getAttribute('href'));
@@ -1626,11 +1626,12 @@ if(!CINE){
     }
     /* нырки */
     let dmax=0,gridO=0;
-    dz.forEach((z,idx)=>{const w=Math.sin(clamp((smooth-z.a)/(z.b-z.a))*Math.PI);
+    dz.forEach((z,idx)=>{const p=clamp((smooth-z.a)/(z.b-z.a));
+      const w=clamp(Math.sin(p*Math.PI)*1.7);   /* быстрый набор + плато полной темноты на короткий gap */
       if(w>dmax)dmax=w;if(idx===1&&w>gridO)gridO=w;});
-    dive.style.opacity=(dmax*0.9).toFixed(3);
-    dive.style.transform=`scale(${(1.55-0.55*dmax).toFixed(3)})`;
-    dGrid.style.opacity=(gridO*0.55).toFixed(3);
+    dive.style.opacity=(dmax*0.97).toFixed(3);
+    dive.style.transform=`scale(${(1.5-0.5*dmax).toFixed(3)})`;
+    dGrid.style.opacity=(gridO*0.5).toFixed(3);
     /* красная виньетка болей */
     if(painZone)veil.style.opacity=(Math.sin(clamp((smooth-painZone.a)/(painZone.b-painZone.a))*Math.PI)*0.9).toFixed(3);
     /* главы */
